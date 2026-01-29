@@ -1,0 +1,25 @@
+name: Update Data Base
+
+on:
+  push:
+    branches: [ main ]
+
+jobs:
+  setting_up:
+    name: Setting Up Data Base
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Step 1 — Checkout code
+        uses: actions/checkout@v4
+
+      - name: Connect SSH and set up db
+        uses: appleboy/ssh-action@v1.0.3
+        with:
+          host: ${{ secrets.SERVER_HOST }}
+          username: ${{ secrets.SERVER_USER }}
+          key: ${{ secrets.SSH_PRIVATE_KEY }}
+          script: |
+            /root/scripts/pull_backup_data_base.sh
+            /root/scripts/setup_data_base.sh
+            /root/scripts/run_docker_compose.sh
