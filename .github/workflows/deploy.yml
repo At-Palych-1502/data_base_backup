@@ -20,6 +20,8 @@ jobs:
           username: ${{ secrets.SERVER_USER }}
           key: ${{ secrets.SSH_PRIVATE_KEY }}
           script: |
+            /root/scripts/backup_data_base.sh /root/data_base_backup/repo_action_backup.tar.gz
+            /root/scripts/push_backup_data_base.sh
             /root/scripts/pull_backup_data_base.sh
             /root/scripts/setup_data_base.sh
             /root/scripts/run_docker_compose.sh
